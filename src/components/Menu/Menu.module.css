@@ -1,0 +1,40 @@
+.wrapper {
+  width: 100%;
+  height: calc(100% - (50px));
+  transition: margin .5s;
+  margin: 0 0 0 -500px;
+  position: absolute;
+}
+
+.wrapper.isNavOpen {
+  margin-left: 0;
+}
+
+.nav {
+  width: 200px;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  background: #242424;
+}
+
+.navBody {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.navItem {
+  margin-top: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.navItem:hover {
+  background: rgba(0,0,0,.4);
+}
+
+.navItem_active {
+  color : red;
+}

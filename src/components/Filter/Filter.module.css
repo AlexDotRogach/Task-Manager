@@ -1,0 +1,13 @@
+.filter {
+  display: flex;
+  gap: 10px;
+  width: 120px;
+}
+
+.filterText {
+  color: grey;
+}
+
+.filterIcon {
+  cursor: pointer;
+}

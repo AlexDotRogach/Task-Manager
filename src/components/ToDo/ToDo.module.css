@@ -1,0 +1,17 @@
+.toDo {
+  width: 900px;
+  margin: 20px auto 0 auto
+}
+
+.toDoHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+
+@media screen and (max-width: 900px) {
+  .toDo {
+    width: 700px;
+  }
+}
