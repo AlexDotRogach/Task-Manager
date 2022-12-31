@@ -1,4 +1,19 @@
 .header {
   height: 50px;
   background: #282828;
+  position: relative;
+}
+
+.plus {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: .3s box-shadow;
+}
+
+.plus:hover {
+  box-shadow: 0 -2px 6px red;
 }

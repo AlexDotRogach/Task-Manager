@@ -1,6 +1,7 @@
 import css from './ToDo.module.css';
 import Date from '../Date/Date';
 import Filter from '../Filter';
+import Overdue from './Overdue';
 
 const ToDo = () => {
   return (
@@ -9,6 +10,8 @@ const ToDo = () => {
         <Date></Date>
         <Filter></Filter>
       </div>
+
+      <Overdue></Overdue>
     </div>
   )
 };
