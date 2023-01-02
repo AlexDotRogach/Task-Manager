@@ -1,12 +1,12 @@
 export function getDay(number) {
   return {
-    0: 'Понедельник',
-    1: 'Вторник',
-    2: 'Среда',
-    3: 'Четверг',
-    4: 'Пятница',
-    5: 'Суббота',
-    6: 'Воскресенье',
+    0: 'Воскресенье',
+    1: 'Понедельник',
+    2: 'Вторник',
+    3: 'Среда',
+    4: 'Четверг',
+    5: 'Пятница',
+    6: 'Суббота',
   }[number];
 }
 export function getMonth(number) {
@@ -25,3 +25,23 @@ export function getMonth(number) {
     11: 'Декабрь',
   }[number];
 }
+
+export function convertMs(ms) {
+  // Number of milliseconds per unit of time
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
+
+  // Remaining days
+  const days = Math.floor(ms / day);
+  // Remaining hours
+  const hours = Math.floor((ms % day) / hour);
+  // Remaining minutes
+  const minutes = Math.floor(((ms % day) % hour) / minute);
+  // Remaining seconds
+  const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+
+  return { days, hours, minutes, seconds };
+}
+

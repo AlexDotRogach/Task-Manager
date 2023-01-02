@@ -3,8 +3,10 @@ import { createPortal } from 'react-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import css from './Modal.module.css';
-import {getDay as getDayWord} from '../../tools/dateServices';
+import { getDay as getDayWord } from '../../tools/dateServices';
+import validateDate from '../../tools/validateDate';
 const modalContainer = document.querySelector('#modal-root');
+let pickDate = null;
 
 const Modal = ({ toggle }) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -31,7 +33,7 @@ const Modal = ({ toggle }) => {
   };
 
   useEffect(() => {
-    setStartDate(setStartDate.getDay())
+    pickDate = validateDate(startDate, new Date());
   }, [startDate]);
 
   return createPortal(
@@ -50,7 +52,7 @@ const Modal = ({ toggle }) => {
           ></input>
           <div className={css.modalPicker}>
             <button type="button" className={css.modalPickerButton}>
-              {startDate.getDay() ?? 'Date'}
+              {pickDate ?? 'Дата'}
             </button>
             <DatePicker
               className={css.modalPickerInput}
@@ -72,5 +74,4 @@ const Modal = ({ toggle }) => {
     modalContainer
   );
 };
-
 export default Modal;
