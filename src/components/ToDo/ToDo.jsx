@@ -1,17 +1,14 @@
 import css from './ToDo.module.css';
-import Date from '../Date/Date';
 import Filter from '../Filter';
-import Overdue from './Overdue';
-
+import ToDoItems from './ToDoItems';
 const ToDo = () => {
   return (
     <div className={css.toDo}>
       <div className={css.toDoHeader}>
-        <Date></Date>
+        <span>Задачи</span>
         <Filter></Filter>
       </div>
-
-      <Overdue></Overdue>
+      <ToDoItems></ToDoItems>
     </div>
   )
 };

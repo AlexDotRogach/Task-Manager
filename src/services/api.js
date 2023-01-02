@@ -1,7 +1,8 @@
 import { localHost } from './const';
 
-const fetchData = async (searchQuery, headers = {}) => {
+const fetchData = async (headers = {}) => {
   const { baseUrl} = localHost;
+
   const request = await fetch(
     `${baseUrl}`, headers
   );

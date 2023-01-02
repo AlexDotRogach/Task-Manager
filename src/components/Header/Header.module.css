@@ -6,7 +6,7 @@
 
 .plus {
   position: absolute;
-  right: 20px;
+  right: 40px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
@@ -16,4 +16,11 @@
 
 .plus:hover {
   box-shadow: 0 -2px 6px red;
+}
+
+.date {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
 }

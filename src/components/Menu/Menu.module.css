@@ -1,5 +1,4 @@
 .wrapper {
-  width: 100%;
   height: calc(100% - (50px));
   transition: margin .5s;
   margin: 0 0 0 -500px;

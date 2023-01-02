@@ -1,18 +1,18 @@
 import css from './Date.module.css';
-import {getDay as getDayWord} from '../../tools/dateServices';
+import {getDayWeek} from '../../tools/dateServices';
 
-const DateToDo = () => {
+const dateToDo = () => {
   const date = new Date();
   const numberOfDate = date.getDate();
-  const day = getDayWord(date.getDay());
+  const day = getDayWeek(date.getDay());
 
   return (
     <div className={css.date}>
       <span>Сегодня</span>
-      <span className={css.day}>{day.slice(0, 3)}</span>
-      <span className={css.number}>{numberOfDate}</span>
+      <span className={css.day}>{day.slice(0, 2)}</span>
+      <span className={css.number}>{`${numberOfDate}`.padStart(2, '0')}</span>
     </div>
   );
 };
 
-export default DateToDo;
+export default dateToDo;
