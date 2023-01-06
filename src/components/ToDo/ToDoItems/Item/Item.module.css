@@ -1,0 +1,31 @@
+.item {
+  border-bottom: grey 1px solid;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  transition: border-bottom 0.3s;
+}
+
+.item:hover {
+  border-bottom: white 1px solid;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.date {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding-left: 40px;
+  font-size: 14px;
+}
+
+.done {
+  text-decoration-line: line-through;
+}
+
+.date.overdue {
+  color: red;
+}

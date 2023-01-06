@@ -3,6 +3,8 @@
   transition: margin .5s;
   margin: 0 0 0 -500px;
   position: absolute;
+  color: white;
+  z-index: 1;
 }
 
 .wrapper.isNavOpen {

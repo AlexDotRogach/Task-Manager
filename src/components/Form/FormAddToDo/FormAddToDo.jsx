@@ -6,12 +6,12 @@ import {
   NotificationManager,
 } from 'react-notifications';
 import DatePicker from 'react-datepicker';
-import { getTypeOfDay, isToday } from '../../tools/validateDate';
-import fetchData from '../../services/api';
-import { headersFetch } from '../../services/const';
+import { getTypeOfDay, isToday } from '../../../tools/validateDate';
+import fetchData from '../../../services/api';
+import { headersFetch } from '../../../services/const';
 import { nanoid } from 'nanoid';
 
-const FormAddToDo = ({ toggle }) => {
+const FormAddToDo = ({ toggle, submitData }) => {
   const [pickDate, setPickDate] = useState('Дата');
   const [date, setDate] = useState();
   const dateBtn = createRef();
@@ -35,7 +35,7 @@ const FormAddToDo = ({ toggle }) => {
     setPickDate(getTypeOfDay(date, currentDate));
   }, [date]);
 
-  const addToDo = async (e) => {
+  const addToDo = async e => {
     e.preventDefault();
 
     const {
@@ -50,6 +50,11 @@ const FormAddToDo = ({ toggle }) => {
       return;
     }
 
+    if (!date) {
+      NotificationManager.info('Выберите дату!', 'Важная информация', 1500);
+      return;
+    }
+
     const bodyFetch = {
       id: nanoid(),
       task: taskValue,
@@ -60,7 +65,8 @@ const FormAddToDo = ({ toggle }) => {
 
     await fetchData(headersFetch('POST', bodyFetch));
 
-    toggle()
+    toggle();
+    submitData();
   };
 
   return (

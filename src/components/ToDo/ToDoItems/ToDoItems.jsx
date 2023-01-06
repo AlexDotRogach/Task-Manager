@@ -1,24 +1,28 @@
 import css from './ToDoItems.module.css';
-import fetchData from '../../../services/api';
 import Date from './Date';
 import Item from './Item';
-import { useEffect, useState } from 'react';
+import fetchData from '../../../services/api';
+import { headersFetch } from '../../../services/const';
 
-const ToDoItems = () => {
-  const [data, setData] = useState([]);
+const ToDoItems = ({ data, submitData, showMoreInfo }) => {
+  const closeTask = async (e, id) => {
+    const { value } = e.target;
+    const check = !JSON.parse(value);
 
-  useEffect(() => {
-    fetchData().then(data => {
-      setData(data);
-    });
-  }, []);
+    const bodyFetch = {
+      done: check,
+    };
+
+    await fetchData(headersFetch('PATCH', bodyFetch), `/${id}`);
+    submitData();
+  };
 
   return (
     <>
       <Date></Date>
-      <ul>
+      <ul className={css.list}>
         {data.map(toDo => {
-          return <Item key={toDo.id} toDo={toDo}></Item>;
+          return <Item key={toDo.id} toDo={toDo} closeTask={closeTask} showMoreInfo={showMoreInfo}></Item>;
         })}
       </ul>
     </>

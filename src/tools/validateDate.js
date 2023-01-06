@@ -23,7 +23,6 @@ export function getTypeOfDay(chooseDate, currentDate) {
 }
 
 export function isToday(chooseDate, currentDate) {
-  // console.log(`${Object.values(getDateInfo(chooseDate))}`);
   return (
     `${Object.values(getDateInfo(chooseDate))}` ===
     `${Object.values(getDateInfo(currentDate))}`

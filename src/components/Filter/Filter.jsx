@@ -5,7 +5,7 @@ const Filter = () => {
   return (
     <div className={css.filter}>
       <div className={css.filterIcon}><VscFilter></VscFilter></div>
-      <span className={css.filterText}>Отбражение</span>
+      <span className={css.filterText}>Отображение</span>
     </div>
   )
 };
