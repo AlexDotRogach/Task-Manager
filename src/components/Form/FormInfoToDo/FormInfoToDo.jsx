@@ -6,10 +6,9 @@ import {
   NotificationManager,
 } from 'react-notifications';
 import DatePicker from 'react-datepicker';
-import { getTypeOfDay, isToday } from '../../../tools/validateDate';
+import { getTypeOfDay } from '../../../tools/validateDate';
 import fetchData from '../../../services/api';
 import { headersFetch } from '../../../services/const';
-import { nanoid } from 'nanoid';
 
 const FormInfoToDo = ({ toggle, submitData, infoForToDo }) => {
   const [pickDate, setPickDate] = useState('Дата');
@@ -37,10 +36,9 @@ const FormInfoToDo = ({ toggle, submitData, infoForToDo }) => {
 
     taskElem.value = task;
     describeElem.value = describe;
-    setPickDate(getTypeOfDay(new Date(date), new Date()));
     setDate(new Date(date));
   };
-  // Дата
+
   const updateToDo = async e => {
     e.preventDefault();
 
@@ -69,12 +67,10 @@ const FormInfoToDo = ({ toggle, submitData, infoForToDo }) => {
       describe: describeValue,
     };
 
-    // better
-    if (
-      new Date(e.target.elements[3].value).getTime() !==
-      new Date(curToDo.date).getTime()
-    ) {
-      bodyFetch.date = new Date(e.target.elements[3].value);
+    const inputDate = new Date(e.target.elements[3].value);
+
+    if (inputDate.getTime() !== new Date(curToDo.date).getTime()) {
+      bodyFetch.date = inputDate;
     }
 
     await fetchData(headersFetch('PATCH', bodyFetch), `/${infoForToDo.id}`);
@@ -85,17 +81,20 @@ const FormInfoToDo = ({ toggle, submitData, infoForToDo }) => {
 
   return (
     <>
+      <h4 className={css.title}>Задача</h4>
       <form className={css.modalForm} ref={form} onSubmit={updateToDo}>
         <input
           className={css.modalInput}
           name="task"
           placeholder="Задача"
         ></input>
-        <input
+        <textarea
+          maxLength={500}
+          minLength={10}
           className={css.modalInput}
           name="describe"
           placeholder="Описание"
-        ></input>
+        ></textarea>
         <div className={css.modalPicker}>
           <button type="button" className={css.modalPickerButton} ref={dateBtn}>
             {pickDate}

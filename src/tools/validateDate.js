@@ -15,9 +15,7 @@ export function getTypeOfDay(chooseDate, currentDate) {
   if (daysDifference === 1) return daysType[1];
   if (daysDifference === 0) return daysType[0];
 
-  const monthWord = getMonthWord(chooseDate.getMonth())
-    .toLowerCase()
-    .slice(0, 3);
+  const monthWord = getMonthWord(chooseDate.getMonth(), 'short').toLowerCase();
 
   return `${chooseDate.getDate()} ${monthWord}`;
 }

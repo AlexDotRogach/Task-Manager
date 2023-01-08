@@ -1,4 +1,4 @@
-export function getDayWeek(number,  type = "full") {
+export function getDayWeek(number, type = 'full') {
   return {
     full: {
       0: 'Воскресенье',
@@ -22,21 +22,38 @@ export function getDayWeek(number,  type = "full") {
   }[type][number];
 }
 
-export function getMonth(number) {
+export function getMonth(number, type = 'full') {
   return {
-    0: 'Январь',
-    1: 'Февраль',
-    2: 'Март',
-    3: 'Апрель',
-    4: 'Май',
-    5: 'Июнь',
-    6: 'Июль',
-    7: 'Август',
-    8: 'Сентябрь',
-    9: 'Октябрь',
-    10: 'Ноябрь',
-    11: 'Декабрь',
-  }[number];
+    full: {
+      0: 'Январь',
+      1: 'Февраль',
+      2: 'Март',
+      3: 'Апрель',
+      4: 'Май',
+      5: 'Июнь',
+      6: 'Июль',
+      7: 'Август',
+      8: 'Сентябрь',
+      9: 'Октябрь',
+      10: 'Ноябрь',
+      11: 'Декабрь',
+    },
+
+    short: {
+      0: 'Янв',
+      1: 'Фев',
+      2: 'Март',
+      3: 'Апр',
+      4: 'Май',
+      5: 'Июнь',
+      6: 'Июль',
+      7: 'Авг',
+      8: 'Сент',
+      9: 'Окт',
+      10: 'Нояб',
+      11: 'Дек',
+    },
+  }[type][number];
 }
 
 export function convertMs(ms) {
@@ -59,10 +76,10 @@ export function convertMs(ms) {
 }
 
 export function getDateInfo(date) {
-  const month = date.getMonth();
+  const month = `${date.getMonth()}`.padStart(2, '0');
   const dayOfWeek = date.getDay();
-  const day = date.getDate();
   const year = date.getFullYear();
+  const day = `${date.getDate()}`.padStart(2, '0');
 
   return { month, dayOfWeek, day, year };
 }

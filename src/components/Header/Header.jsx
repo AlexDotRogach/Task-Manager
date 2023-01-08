@@ -5,7 +5,7 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import Menu from '../Menu/Menu';
 import Date from '../Date/Date';
 
-const Header = ({toggleModal}) => {
+const Header = ({ toggleModal, setFilter }) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ const Header = ({toggleModal}) => {
           <AiFillPlusCircle size={24}></AiFillPlusCircle>
         </div>
       </div>
-      <Menu show={isOpen}></Menu>
+      <Menu show={isOpen} setFilter={setFilter}></Menu>
     </>
   );
 };
