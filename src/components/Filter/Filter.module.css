@@ -11,24 +11,17 @@
   cursor: pointer;
 }
 
-.alert {
+.filterShow {
   opacity: 0;
+  transform: scale(0.1);
 }
-
-.alert-entering {
-  opacity: 0;
-  transform: scale(0.9);
-}
-.alert-entered {
+.filterDone {
   opacity: 1;
-  transform: translateX(0);
   transition: opacity 300ms, transform 300ms;
+  transform: scale(1);
 }
-.alert-exiting {
-  opacity: 1;
-}
-.alert-exited {
+.filterHide {
   opacity: 0;
-  transform: scale(0.9);
+  transform: scale(0.1);
   transition: opacity 300ms, transform 300ms;
 }

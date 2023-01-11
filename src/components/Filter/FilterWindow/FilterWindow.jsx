@@ -1,33 +1,46 @@
 import css from './FilterWindow.module.css';
-import { CSSTransition } from 'react-transition-group';
+import { FormControlLabel, RadioGroup, FormLabel, Radio } from '@mui/material';
+import {useFilter} from '../../../context/filterContext'
+
+const sxSetting = {
+  color: 'white',
+  '&.Mui-checked': {
+    color: 'grey',
+  },
+};
+
 const FilterWindow = () => {
+  const setFilter = useFilter();
+
+  console.log(setFilter)
+
   return (
-    <>
-      test
-        <div className={css.filter}>
-          {/*<input type="radio" value="all" name="all" /> Все*/}
-          {/*<input type="radio" value="today" name="today" /> Сегодня*/}
-          {/*<input type="radio" value="overdue" name="overdue" /> Просроченные*/}
-
-          {/*<div className="container">*/}
-          {/*  <div className="radio">*/}
-          {/*    <input id="radio-1" name="radio" type="radio" checked/>*/}
-          {/*      <label htmlFor="radio-1" className="radio-label">Checked</label>*/}
-          {/*  </div>*/}
-
-          {/*  <div className="radio">*/}
-          {/*    <input id="radio-2" name="radio" type="radio">*/}
-          {/*      <label htmlFor="radio-2" className="radio-label"/>Unchecked</label>*/}
-          {/*  </div>*/}
-
-          {/*  <div className="radio">*/}
-          {/*    <input id="radio-3" name="radio" type="radio" disabled>*/}
-          {/*      <label htmlFor="radio-3" className="radio-label"/>Disabled</label>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
-        </div>
-
-    </>
+    <div className={css.filterWindowWrapper}>
+      <FormLabel id="filterRadio" className={css.filterRadioLabel}>
+        Фильтр
+      </FormLabel>
+      <RadioGroup
+        aria-labelledby="filterRadio"
+        defaultValue="all"
+        name="radio-buttons-group"
+      >
+        <FormControlLabel
+          value="all"
+          control={<Radio sx={sxSetting} />}
+          label="Все"
+        />
+        <FormControlLabel
+          value="today"
+          control={<Radio sx={sxSetting} />}
+          label="Сегодня"
+        />
+        <FormControlLabel
+          value="overdue"
+          control={<Radio sx={sxSetting} />}
+          label="Просроченные"
+        />
+      </RadioGroup>
+    </div>
   );
 };
 

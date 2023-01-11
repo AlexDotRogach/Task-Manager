@@ -6,6 +6,7 @@ import Modal from '../Modal';
 import fetchData from '../../services/api';
 import { getDateInfo } from '../../tools/dateServices';
 import { isToday } from '../../tools/validateDate';
+import {  filterContext } from '../../context/filterContext';
 
 const sortString = '?_sort=done&_order=asc';
 
@@ -72,8 +73,10 @@ const App = () => {
   return (
     <>
       <div className={css.app}>
-        <Header toggleModal={toggleModal} setFilter={setFilter}></Header>
-        <ToDo data={data} submitData={submitData}></ToDo>
+        <filterContext.Provider value={setFilter}>
+          <Header toggleModal={toggleModal} setFilter={setFilter}></Header>
+          <ToDo data={data} submitData={submitData}></ToDo>
+        </filterContext.Provider>
       </div>
       {isOpenAdd && (
         <Modal toggle={toggleModal} submitData={submitData} type="new"></Modal>
