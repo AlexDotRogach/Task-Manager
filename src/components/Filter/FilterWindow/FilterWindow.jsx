@@ -1,6 +1,6 @@
 import css from './FilterWindow.module.css';
 import { FormControlLabel, RadioGroup, FormLabel, Radio } from '@mui/material';
-import {useFilter} from '../../../context/filterContext'
+import { useFilter } from '../../../context/filterContext';
 
 const sxSetting = {
   color: 'white',
@@ -9,20 +9,22 @@ const sxSetting = {
   },
 };
 
-const FilterWindow = () => {
+const FilterWindow = ({ref}) => {
   const setFilter = useFilter();
 
-  console.log(setFilter)
-
   return (
-    <div className={css.filterWindowWrapper}>
-      <FormLabel id="filterRadio" className={css.filterRadioLabel}>
+    <div className={css.filterWindowWrapper} ref={ref}>
+      <FormLabel
+        id="filterRadio"
+        className={css.filterRadioLabel}
+      >
         Фильтр
       </FormLabel>
       <RadioGroup
         aria-labelledby="filterRadio"
         defaultValue="all"
         name="radio-buttons-group"
+        onChange={({ target: { value } }) => setFilter(value)}
       >
         <FormControlLabel
           value="all"

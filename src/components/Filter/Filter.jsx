@@ -1,11 +1,12 @@
-import {  useState } from 'react';
+import { useState, useRef, forwardRef } from 'react';
 import css from './Filter.module.css';
 import { VscFilter } from 'react-icons/vsc';
 import FilterWindow from './FilterWindow';
 import { CSSTransition } from 'react-transition-group';
 
-const Filter = ({ showFilter }) => {
+const Filter = () => {
   const [stateFilter, setStateFilter] = useState(false);
+  const nodeRef = useRef(null);
   const toggleFilterWindow = () => {
     setStateFilter(!stateFilter);
   };
@@ -18,6 +19,7 @@ const Filter = ({ showFilter }) => {
       <span className={css.filterText}>Отображение</span>
 
       <CSSTransition
+        nodeRef={nodeRef}
         in={stateFilter}
         timeout={500}
         classNames={{
@@ -28,7 +30,7 @@ const Filter = ({ showFilter }) => {
         unmountOnExit
         mountOnEnter
       >
-        <FilterWindow></FilterWindow>
+        <FilterWindow></FilterWindow>;
       </CSSTransition>
     </div>
   );

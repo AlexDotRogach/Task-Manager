@@ -74,7 +74,7 @@ const App = () => {
     <>
       <div className={css.app}>
         <filterContext.Provider value={setFilter}>
-          <Header toggleModal={toggleModal} setFilter={setFilter}></Header>
+          <Header toggleModal={toggleModal}></Header>
           <ToDo data={data} submitData={submitData}></ToDo>
         </filterContext.Provider>
       </div>

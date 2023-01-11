@@ -1,8 +1,10 @@
 // import { createRef, useEffect } from 'react';
 import css from './Menu.module.css';
 import clsx from 'clsx';
+import { useFilter } from '../../context/filterContext';
 
-const Menu = ({ show, setFilter }) => {
+const Menu = ({ show }) => {
+  const setFilter = useFilter();
   const clickFilter = ({ target }) => {
     if (target.tagName !== 'LI') return;
     setFilter(target.dataset.type)
