@@ -7,7 +7,6 @@ import { useState } from 'react';
 const ToDo = ({ data, submitData }) => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [id, setId] = useState('');
-
   const toggleModal = e => setIsOpenAdd(!isOpenAdd);
 
   //  for li

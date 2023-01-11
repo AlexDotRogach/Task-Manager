@@ -21,12 +21,13 @@
     "react-loader-spinner": "^5.3.4",
     "react-notifications": "^1.7.4",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.5",
     "web-vitals": "^2.1.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "server": "json-server --watch src/data/db.json",
+    "server": "json-server --watch src/data/db.json -p 5050",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:js": "eslint src/**/*.{js,jsx}"

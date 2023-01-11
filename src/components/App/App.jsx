@@ -27,8 +27,8 @@ const App = () => {
 
   // update ToDo
   // for form add and when i change checkboxes
-  const submitData = e => {
-    if (filter && filter !== 'все') {
+  const submitData = () => {
+    if (filter && filter !== 'all') {
       setFilterData();
       return;
     }
@@ -40,10 +40,10 @@ const App = () => {
 
   const setFilterData = () => {
     switch (filter) {
-      case 'все':
+      case 'all':
         submitData();
         break;
-      case 'сегодня':
+      case 'today':
         const { month, day, year } = getDateInfo(new Date());
 
         fetchData(
@@ -55,7 +55,7 @@ const App = () => {
           setData(filterData.filter(item => !item.done));
         });
         break;
-      case 'просроченные':
+      case 'overdue':
         fetchData({}, sortString).then(data => {
           setData(
             data.filter(

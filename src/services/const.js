@@ -1,5 +1,5 @@
 export const localHost = {
-  baseUrl: 'http://localhost:3000/items',
+  baseUrl: 'http://localhost:5050/items',
 };
 
 export const headersFetch = (type, body) => {
