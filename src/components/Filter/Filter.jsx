@@ -1,4 +1,4 @@
-import { useState, useRef, forwardRef } from 'react';
+import { useState, useRef } from 'react';
 import css from './Filter.module.css';
 import { VscFilter } from 'react-icons/vsc';
 import FilterWindow from './FilterWindow';
@@ -30,7 +30,9 @@ const Filter = () => {
         unmountOnExit
         mountOnEnter
       >
-        <FilterWindow></FilterWindow>;
+        <>
+          <FilterWindow ref={nodeRef}></FilterWindow>
+        </>
       </CSSTransition>
     </div>
   );

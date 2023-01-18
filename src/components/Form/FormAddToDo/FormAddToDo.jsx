@@ -12,12 +12,13 @@ import { headersFetch } from '../../../services/const';
 import { nanoid } from 'nanoid';
 
 const FormAddToDo = ({ toggle, submitData }) => {
-  const [pickDate, setPickDate] = useState('Дата');
+  const [pickDate, setPickDate] = useState('Сегодня');
   const [date, setDate] = useState();
   const dateBtn = createRef();
 
+
   useEffect(() => {
-    if (!date) return;
+    if (!date) return
 
     const currentDate = new Date();
 
@@ -88,7 +89,7 @@ const FormAddToDo = ({ toggle, submitData }) => {
           </button>
 
           <DatePicker
-            selected={date}
+            selected={!date && new Date()}
             className={css.modalPickerInput}
             onChange={setDate}
           />

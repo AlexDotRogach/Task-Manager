@@ -3,21 +3,33 @@ import css from './App.module.css';
 import Header from 'components/Header';
 import ToDo from '../ToDo';
 import Modal from '../Modal';
+import Pagination from '../Pagination';
 import fetchData from '../../services/api';
 import { getDateInfo } from '../../tools/dateServices';
 import { isToday } from '../../tools/validateDate';
-import {  filterContext } from '../../context/filterContext';
+import { filterContext } from '../../context/filterContext';
 
-const sortString = '?_sort=done&_order=asc';
-
+const fetchSetting = '?_sort=done&_order=asc&_limit=6';
+let pagPage = [];
 const App = () => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
+  const [page, setPage] = useState(1);
+
+
 
   // init toDo
   useEffect(() => {
     submitData();
+
+    fetchData({}).then(data => {
+      const totalPage = Math.ceil(data.length / 8);
+      for (let i = 1; i <= totalPage; i++) {
+        console.log(i)
+        pagPage.push(i);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -34,7 +46,7 @@ const App = () => {
       return;
     }
 
-    fetchData({}, sortString).then(data => {
+    fetchData({}, fetchSetting).then(data => {
       setData(data);
     });
   };
@@ -57,7 +69,7 @@ const App = () => {
         });
         break;
       case 'overdue':
-        fetchData({}, sortString).then(data => {
+        fetchData({}, fetchSetting).then(data => {
           setData(
             data.filter(
               item =>
@@ -70,6 +82,10 @@ const App = () => {
     }
   };
 
+  const changePage = (e) => {
+    console.log(e.target)
+  }
+
   return (
     <>
       <div className={css.app}>
@@ -77,6 +93,7 @@ const App = () => {
           <Header toggleModal={toggleModal}></Header>
           <ToDo data={data} submitData={submitData}></ToDo>
         </filterContext.Provider>
+        <Pagination pagPage={pagPage} changePage={changePage}></Pagination>
       </div>
       {isOpenAdd && (
         <Modal toggle={toggleModal} submitData={submitData} type="new"></Modal>

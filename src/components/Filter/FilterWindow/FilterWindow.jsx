@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import css from './FilterWindow.module.css';
 import { FormControlLabel, RadioGroup, FormLabel, Radio } from '@mui/material';
 import { useFilter } from '../../../context/filterContext';
@@ -9,15 +10,12 @@ const sxSetting = {
   },
 };
 
-const FilterWindow = ({ref}) => {
+const FilterWindow = forwardRef((props, ref) => {
   const setFilter = useFilter();
 
   return (
     <div className={css.filterWindowWrapper} ref={ref}>
-      <FormLabel
-        id="filterRadio"
-        className={css.filterRadioLabel}
-      >
+      <FormLabel id="filterRadio" className={css.filterRadioLabel}>
         Фильтр
       </FormLabel>
       <RadioGroup
@@ -44,6 +42,6 @@ const FilterWindow = ({ref}) => {
       </RadioGroup>
     </div>
   );
-};
+});
 
 export default FilterWindow;
