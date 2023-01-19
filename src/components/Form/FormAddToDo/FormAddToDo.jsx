@@ -13,12 +13,15 @@ import { nanoid } from 'nanoid';
 
 const FormAddToDo = ({ toggle, submitData }) => {
   const [pickDate, setPickDate] = useState('Сегодня');
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(new Date());
   const dateBtn = createRef();
 
-
   useEffect(() => {
-    if (!date) return
+    if (!date) return;
+
+    const dataStr = new Date().toLocaleDateString();
+
+    console.log(new Date('05.11.19'));
 
     const currentDate = new Date();
 
@@ -48,11 +51,6 @@ const FormAddToDo = ({ toggle, submitData }) => {
 
     if (!describeValue || !taskValue) {
       NotificationManager.info('Заполните задачу', 'Важная информация', 1500);
-      return;
-    }
-
-    if (!date) {
-      NotificationManager.info('Выберите дату!', 'Важная информация', 1500);
       return;
     }
 

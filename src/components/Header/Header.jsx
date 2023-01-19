@@ -5,16 +5,14 @@ import { AiFillPlusCircle } from 'react-icons/ai';
 import Menu from '../Menu/Menu';
 import Date from '../Date/Date';
 
-const Header = ({ toggleModal}) => {
+const Header = ({ toggleModal }) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
     <>
       <div className={css.header}>
         <Hamburger color="white" size={22} toggled={isOpen} toggle={setOpen} />
-        <div className={css.date}>
-          <Date></Date>
-        </div>
+        <Date></Date>
         <div className={css.plus} onClick={toggleModal}>
           <AiFillPlusCircle size={24}></AiFillPlusCircle>
         </div>

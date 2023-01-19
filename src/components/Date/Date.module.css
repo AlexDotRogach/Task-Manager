@@ -1,4 +1,9 @@
 .date {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+
   display: flex;
   gap: 10px;
   max-width: 120px;
@@ -8,4 +13,3 @@
 .day, .number  {
   color: grey;
 }
-
