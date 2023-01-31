@@ -13,3 +13,9 @@
 .day, .number  {
   color: grey;
 }
+
+@media (max-width: 540px) {
+  .date {
+    font-size: 14px;
+  }
+}

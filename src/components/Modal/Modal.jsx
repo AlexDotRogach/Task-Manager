@@ -4,6 +4,7 @@ import FormAddToDo from '../Form/FormAddToDo';
 import FormInfoToDo from '../Form/FormInfoToDo';
 import 'react-datepicker/dist/react-datepicker.css';
 import css from './Modal.module.css';
+import PropTypes from 'prop-types';
 
 const modalContainer = document.querySelector('#modal-root');
 
@@ -58,3 +59,10 @@ const Modal = ({ toggle, submitData, type, infoForToDo }) => {
   );
 };
 export default Modal;
+
+Modal.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  submitData: PropTypes.func.isRequired,
+  type: PropTypes.string,
+  infoForToDo: PropTypes.object
+};

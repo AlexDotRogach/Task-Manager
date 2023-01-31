@@ -10,18 +10,24 @@ import { getTypeOfDay, isToday } from '../../../tools/validateDate';
 import fetchData from '../../../services/api';
 import { headersFetch } from '../../../services/const';
 import { nanoid } from 'nanoid';
+import { getDateInfo } from '../../../tools/dateServices';
+import PropTypes from 'prop-types';
 
 const FormAddToDo = ({ toggle, submitData }) => {
   const [pickDate, setPickDate] = useState('Сегодня');
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(() => {
+    const { month, day, year } = getDateInfo(new Date());
+    return new Date(
+      `${year}-${`${+month + 1}`.padStart(2, 0)}-${`${day - 1}`.padStart(
+        2,
+        0
+      )}T22:00:00.000Z`
+    );
+  });
   const dateBtn = createRef();
 
   useEffect(() => {
     if (!date) return;
-
-    const dataStr = new Date().toLocaleDateString();
-
-    console.log(new Date('05.11.19'));
 
     const currentDate = new Date();
 
@@ -87,7 +93,7 @@ const FormAddToDo = ({ toggle, submitData }) => {
           </button>
 
           <DatePicker
-            selected={!date && new Date()}
+            selected={date}
             className={css.modalPickerInput}
             onChange={setDate}
           />
@@ -107,3 +113,8 @@ const FormAddToDo = ({ toggle, submitData }) => {
 };
 
 export default FormAddToDo;
+
+FormAddToDo.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  submitData: PropTypes.func.isRequired,
+};

@@ -9,6 +9,7 @@ import DatePicker from 'react-datepicker';
 import { getTypeOfDay } from '../../../tools/validateDate';
 import fetchData from '../../../services/api';
 import { headersFetch } from '../../../services/const';
+import PropTypes from 'prop-types';
 
 const FormInfoToDo = ({ toggle, submitData, infoForToDo }) => {
   const [pickDate, setPickDate] = useState('Дата');
@@ -121,3 +122,9 @@ const FormInfoToDo = ({ toggle, submitData, infoForToDo }) => {
 };
 
 export default FormInfoToDo;
+
+FormInfoToDo.propTypes = {
+  toggle: PropTypes.func.isRequired,
+  submitData: PropTypes.func.isRequired,
+  infoForToDo: PropTypes.object
+};

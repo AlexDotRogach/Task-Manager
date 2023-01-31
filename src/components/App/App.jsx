@@ -9,21 +9,22 @@ import { getDateInfo } from '../../tools/dateServices';
 import { isToday } from '../../tools/validateDate';
 import { filterContext } from '../../context/filterContext';
 
-const defaultFetchSetting = '?_sort=done,date&_order=asc';
+const defaultFetchSetting = '?_sort=done,date&_order=asc,desc';
 const paginationObj = {};
-let searchStr = defaultFetchSetting;
 const sizeData = 6;
+let searchStr = defaultFetchSetting;
 
 const App = () => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
-  const [pagPage, setPagPage] = useState([]);
+  const [pagPage, setPagPage] = useState([]); // for rendering click item pagination
   const [dataLimit, setDataLimit] = useState([]);
-  // const [curPage, se]
+  const [currentPage, setCurrentPage] = useState(1);
+
   // init toDo
   useEffect(() => {
-    fetchData({}).then(data => {
+    fetchData({}, defaultFetchSetting).then(data => {
       paginationElement(data);
       submitData();
       setDataLimit(paginationObj[1]);
@@ -42,7 +43,7 @@ const App = () => {
       return;
     }
 
-    fetchData({}).then(data => {
+    fetchData({}, defaultFetchSetting).then(data => {
       paginationElement(data);
     });
   }, [data]);
@@ -56,8 +57,15 @@ const App = () => {
       return;
     }
 
-    const totalPage = Math.ceil(arr.length / sizeData);
     const pagPageArr = [];
+    const totalPage = Math.ceil(arr.length / sizeData);
+    let renderPage = currentPage;
+
+    if (totalPage < currentPage) {
+      setCurrentPage(1);
+      renderPage = 1;
+    }
+
     let rangeData = {
       start: 0,
       end: 6,
@@ -72,7 +80,7 @@ const App = () => {
       };
     }
 
-    setDataLimit(paginationObj[1]);
+    setDataLimit(paginationObj[renderPage]);
     setPagPage(pagPageArr);
   };
 
@@ -105,7 +113,6 @@ const App = () => {
 
         fetchData({}, searchStr).then(data => {
           const filterData = data.filter(item => !item.done);
-          console.log(filterData)
           setData(filterData);
         });
         break;
@@ -123,8 +130,10 @@ const App = () => {
     }
   };
 
-  const changePage = ({ target: { textContent: pageNumber } }) => {
+  const changePage = pageNumber => {
+    pageNumber = +pageNumber;
     setDataLimit(paginationObj[pageNumber]);
+    setCurrentPage(pageNumber);
   };
 
   return (
@@ -134,7 +143,11 @@ const App = () => {
           <Header toggleModal={toggleModal}></Header>
           <ToDo data={dataLimit} submitData={submitData}></ToDo>
         </filterContext.Provider>
-        <Pagination pagPage={pagPage} changePage={changePage}></Pagination>
+        <Pagination
+          pagPage={pagPage}
+          changePage={changePage}
+          currentPage={currentPage}
+        ></Pagination>
       </div>
       {isOpenAdd && (
         <Modal toggle={toggleModal} submitData={submitData} type="new"></Modal>

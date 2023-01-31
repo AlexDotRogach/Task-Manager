@@ -4,6 +4,7 @@ import { Squash as Hamburger } from 'hamburger-react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import Menu from '../Menu/Menu';
 import Date from '../Date/Date';
+import PropTypes from 'prop-types';
 
 const Header = ({ toggleModal }) => {
   const [isOpen, setOpen] = useState(false);
@@ -23,3 +24,7 @@ const Header = ({ toggleModal }) => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+};

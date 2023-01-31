@@ -18,3 +18,10 @@
 .plus:hover {
   box-shadow: 0 -2px 6px red;
 }
+
+
+@media (max-width: 540px) {
+  .plus {
+    top: 55%;
+  }
+}

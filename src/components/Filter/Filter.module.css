@@ -25,3 +25,9 @@
   transform: scale(0.1);
   transition: opacity 300ms, transform 300ms;
 }
+
+@media (max-width: 768px) {
+  .filter {
+    display: none;
+  }
+}
