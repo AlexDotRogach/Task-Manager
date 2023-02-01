@@ -15,7 +15,7 @@ export function getDayWeek(number, type = 'full') {
       1: 'Пон',
       2: 'Вт',
       3: 'Ср',
-      4: 'Чет',
+      4: 'Четв',
       5: 'Пят',
       6: 'Суб',
     },

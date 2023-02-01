@@ -3,6 +3,7 @@ import Date from './Date';
 import Item from './Item';
 import fetchData from '../../../services/api';
 import { headersFetch } from '../../../services/const';
+import PropTypes from 'prop-types';
 
 const ToDoItems = ({ data, submitData, showMoreInfo }) => {
   const closeTask = async (e, id) => {
@@ -22,7 +23,15 @@ const ToDoItems = ({ data, submitData, showMoreInfo }) => {
       <Date></Date>
       <ul className={css.list}>
         {data.map(toDo => {
-          return <Item key={toDo.id} toDo={toDo} closeTask={closeTask} showMoreInfo={showMoreInfo}></Item>;
+          return (
+            <Item
+              key={toDo.id}
+              toDo={toDo}
+              closeTask={closeTask}
+              showMoreInfo={showMoreInfo}
+              submitData={submitData}
+            ></Item>
+          );
         })}
       </ul>
     </>
@@ -30,3 +39,9 @@ const ToDoItems = ({ data, submitData, showMoreInfo }) => {
 };
 
 export default ToDoItems;
+
+ToDoItems.propTypes = {
+  data: PropTypes.array.isRequired,
+  submitData: PropTypes.func.isRequired,
+  showMoreInfo: PropTypes.func.isRequired,
+};

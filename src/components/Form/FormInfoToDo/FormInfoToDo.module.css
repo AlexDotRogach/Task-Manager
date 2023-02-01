@@ -77,3 +77,14 @@
   transform: translateY(-22px);
   cursor: pointer;
 }
+
+@media (max-width: 575px) {
+  .modalButton_save,
+  .modalButton_cancel {
+    bottom: 0;
+  }
+
+  .modalButton_cancel {
+    right: auto;
+  }
+}

@@ -4,6 +4,7 @@
   color: white;
   cursor: pointer;
   transition: border-bottom 0.3s;
+  position: relative;
 }
 
 .item:hover {
@@ -28,4 +29,16 @@
 
 .date.overdue {
   color: red;
+}
+
+.trash {
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s;
+}
+
+.trash:hover {
+  transform: scale(1.1) translateY(-5px);
 }

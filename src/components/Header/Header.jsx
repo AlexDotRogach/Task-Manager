@@ -4,17 +4,16 @@ import { Squash as Hamburger } from 'hamburger-react';
 import { AiFillPlusCircle } from 'react-icons/ai';
 import Menu from '../Menu/Menu';
 import Date from '../Date/Date';
+import PropTypes from 'prop-types';
 
-const Header = ({ toggleModal}) => {
+const Header = ({ toggleModal }) => {
   const [isOpen, setOpen] = useState(false);
 
   return (
     <>
       <div className={css.header}>
         <Hamburger color="white" size={22} toggled={isOpen} toggle={setOpen} />
-        <div className={css.date}>
-          <Date></Date>
-        </div>
+        <Date></Date>
         <div className={css.plus} onClick={toggleModal}>
           <AiFillPlusCircle size={24}></AiFillPlusCircle>
         </div>
@@ -25,3 +24,7 @@ const Header = ({ toggleModal}) => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  toggleModal: PropTypes.func.isRequired,
+};

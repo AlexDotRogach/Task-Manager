@@ -11,9 +11,30 @@
   position: relative;
 }
 
-
 @media screen and (max-width: 900px) {
   .toDo {
     width: 700px;
   }
 }
+@media (max-width: 768px) {
+  .toDo {
+    width: 500px;
+  }
+
+  .toDoHeader {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .toDo {
+    width: 300px;
+  }
+}
+
+@media (max-width: 420px) {
+  .toDo {
+    width: 200px;
+  }
+}
+

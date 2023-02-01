@@ -3,6 +3,7 @@ import Filter from '../Filter';
 import ToDoItems from './ToDoItems';
 import Modal from '../Modal';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const ToDo = ({ data, submitData }) => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
@@ -50,3 +51,9 @@ function checkDone(id, data) {
 }
 
 export default ToDo;
+
+
+ToDo.propTypes = {
+  data: PropTypes.array.isRequired,
+  submitData: PropTypes.func.isRequired,
+};

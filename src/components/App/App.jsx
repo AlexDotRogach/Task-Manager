@@ -9,34 +9,80 @@ import { getDateInfo } from '../../tools/dateServices';
 import { isToday } from '../../tools/validateDate';
 import { filterContext } from '../../context/filterContext';
 
-const fetchSetting = '?_sort=done&_order=asc&_limit=6';
-let pagPage = [];
+const defaultFetchSetting = '?_sort=done,date&_order=asc,desc';
+const paginationObj = {};
+const sizeData = 6;
+let searchStr = defaultFetchSetting;
+
 const App = () => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState('');
-  const [page, setPage] = useState(1);
-
-
+  const [pagPage, setPagPage] = useState([]); // for rendering click item pagination
+  const [dataLimit, setDataLimit] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // init toDo
   useEffect(() => {
-    submitData();
-
-    fetchData({}).then(data => {
-      const totalPage = Math.ceil(data.length / 8);
-      for (let i = 1; i <= totalPage; i++) {
-        console.log(i)
-        pagPage.push(i);
-      }
+    fetchData({}, defaultFetchSetting).then(data => {
+      paginationElement(data);
+      submitData();
+      setDataLimit(paginationObj[1]);
     });
   }, []);
 
+  // update filter data
   useEffect(() => {
     setFilterData();
   }, [filter]);
 
-  const toggleModal = e => setIsOpenAdd(!isOpenAdd);
+  // update pagination buttons
+  useEffect(() => {
+    if (filter && filter !== 'all') {
+      paginationElement(data);
+      return;
+    }
+
+    fetchData({}, defaultFetchSetting).then(data => {
+      paginationElement(data);
+    });
+  }, [data]);
+
+  const toggleModal = () => setIsOpenAdd(!isOpenAdd);
+
+  const paginationElement = arr => {
+    if (arr.length < sizeData) {
+      setDataLimit(arr);
+      setPagPage([]);
+      return;
+    }
+
+    const pagPageArr = [];
+    const totalPage = Math.ceil(arr.length / sizeData);
+    let renderPage = currentPage;
+
+    if (totalPage < currentPage) {
+      setCurrentPage(1);
+      renderPage = 1;
+    }
+
+    let rangeData = {
+      start: 0,
+      end: 6,
+    };
+
+    for (let i = 1; i <= totalPage; i++) {
+      pagPageArr.push(i);
+      paginationObj[i] = arr.slice(rangeData.start, rangeData.end);
+      rangeData = {
+        start: rangeData.start + sizeData,
+        end: rangeData.end + sizeData,
+      };
+    }
+
+    setDataLimit(paginationObj[renderPage]);
+    setPagPage(pagPageArr);
+  };
 
   // update ToDo
   // for form add and when i change checkboxes
@@ -46,12 +92,14 @@ const App = () => {
       return;
     }
 
-    fetchData({}, fetchSetting).then(data => {
+    fetchData({}, searchStr).then(data => {
       setData(data);
     });
   };
 
   const setFilterData = () => {
+    searchStr = defaultFetchSetting;
+
     switch (filter) {
       case 'all':
         submitData();
@@ -59,17 +107,17 @@ const App = () => {
       case 'today':
         const { month, day, year } = getDateInfo(new Date());
 
-        fetchData(
-          {},
-          `?date_like=${year}-${`${+month + 1}`.padStart(2, 0)}-${`${
-            +day - 1
-          }`.padStart(2, 0)}T22:00:00.000Z`
-        ).then(filterData => {
-          setData(filterData.filter(item => !item.done));
+        searchStr = `${defaultFetchSetting}&date_like=${year}-${`${
+          +month + 1
+        }`.padStart(2, 0)}-${`${day - 1}`.padStart(2, 0)}T22:00:00.000Z`;
+
+        fetchData({}, searchStr).then(data => {
+          const filterData = data.filter(item => !item.done);
+          setData(filterData);
         });
         break;
       case 'overdue':
-        fetchData({}, fetchSetting).then(data => {
+        fetchData({}, defaultFetchSetting).then(data => {
           setData(
             data.filter(
               item =>
@@ -82,18 +130,24 @@ const App = () => {
     }
   };
 
-  const changePage = (e) => {
-    console.log(e.target)
-  }
+  const changePage = pageNumber => {
+    pageNumber = +pageNumber;
+    setDataLimit(paginationObj[pageNumber]);
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <>
       <div className={css.app}>
         <filterContext.Provider value={setFilter}>
           <Header toggleModal={toggleModal}></Header>
-          <ToDo data={data} submitData={submitData}></ToDo>
+          <ToDo data={dataLimit} submitData={submitData}></ToDo>
         </filterContext.Provider>
-        <Pagination pagPage={pagPage} changePage={changePage}></Pagination>
+        <Pagination
+          pagPage={pagPage}
+          changePage={changePage}
+          currentPage={currentPage}
+        ></Pagination>
       </div>
       {isOpenAdd && (
         <Modal toggle={toggleModal} submitData={submitData} type="new"></Modal>

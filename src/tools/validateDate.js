@@ -7,13 +7,25 @@ import {
 const daysType = ['Сегодня', 'Вчера', 'Завтра'];
 
 export function getTypeOfDay(chooseDate, currentDate) {
-  const { days: chooseDays } = convertMs(chooseDate);
-  const { days: currentDays } = convertMs(currentDate);
-  const daysDifference = currentDays - (chooseDays + 1);
+  const {
+    month: monthChoose,
+    dayOfWeek: dayOfWeekChoose,
+    day: dayChoose,
+    year: yearChoose,
+  } = getDateInfo(chooseDate);
+  const {
+    month: monthCurrent,
+    dayOfWeek: dayOfWeekCurrent,
+    day: dayCurrent,
+    year: yearCurrent,
+  } = getDateInfo(currentDate);
 
-  if (daysDifference === -1) return daysType[2];
-  if (daysDifference === 1) return daysType[1];
-  if (daysDifference === 0) return daysType[0];
+  if (isToday(chooseDate, currentDate)) return daysType[0];
+
+  if (monthCurrent === monthChoose && yearCurrent === yearChoose) {
+    if (dayChoose - dayCurrent === 1) return daysType[2];
+    if (dayChoose - dayCurrent === -1) return daysType[1];
+  }
 
   const monthWord = getMonthWord(chooseDate.getMonth(), 'short').toLowerCase();
 

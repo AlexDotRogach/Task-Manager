@@ -1,4 +1,9 @@
 .date {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+
   display: flex;
   gap: 10px;
   max-width: 120px;
@@ -9,3 +14,8 @@
   color: grey;
 }
 
+@media (max-width: 540px) {
+  .date {
+    font-size: 14px;
+  }
+}
