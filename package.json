@@ -1,8 +1,7 @@
 {
-  "name": "react-template",
+  "name": "task-manager",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://goitacademy.github.io/react-template/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
